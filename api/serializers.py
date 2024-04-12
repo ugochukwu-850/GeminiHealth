@@ -47,21 +47,25 @@ class MedicalNutrientNeedItemSerializer(serializers.ModelSerializer):
         model = MedicalNutrientNeedItem
         fields = ['id', 'nutrient', 'amount', 'metric']
 
-class UserSerializer(serializers.ModelSerializer):
-    
 
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'is_company', 'account_balance', 'image_url', 'lat', 'long']
-
-
-    
 class CompanySerializer(serializers.ModelSerializer):
-    admin = UserSerializer()
 
     class Meta:
         model = Company
-        fields = ['id', 'admin', 'cover_photo', 'profile_photo', 'name', 'about', 'joined']
+        fields = ['id', 'cover_photo', 'profile_photo', 'name', 'about', 'joined']
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'is_company',  'account_balance', 'image_url', 'lat', 'long', 'password']
+        
+        read_only_fields = ['account_balance', ]
+
+
+
+    
 
 class RecipeSerializer(serializers.ModelSerializer):
     company = CompanySerializer()

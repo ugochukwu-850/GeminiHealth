@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from rest_framework import mixins, generics, status
+from rest_framework import views, generics, status, exceptions
 import rest_framework.exceptions
+from rest_framework_simplejwt.tokens import AccessToken
+
 
 import rest_framework.static
 from .models import User
@@ -12,25 +14,58 @@ from rest_framework.permissions import AllowAny
 
 
 # Create your views here.
-class User(mixins.CreateModelMixin, generics.GenericAPIView, mixins.RetrieveModelMixin):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-    lookup_field = 'id'
-
-    authentication_classes = []  # Exclude authentication
-    permission_classes = [AllowAny]  # Allow any user to access
+class UserView(generics.GenericAPIView):
     
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+    """Create, update , and view a user profile"""
+    
+    def get(self, request):
+        
+        auth_string = request.headers.get('Authorization')
+        if not auth_string:
+            return Response(data="No authorization headers detected",status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            bearer, token = auth_string.split()
+            if bearer.lower() != "bearer":
+                return Response(detail="Unsupported header format", status=status.HTTP_400_BAD_REQUEST)
+            
+            access_token = AccessToken(token)
+            
+            # Retrieve the user ID from the token payload
+            user_id = access_token.payload['user_id']
+            user = User.objects.get(pk=user_id)
+        except Exception as e :
+            raise exceptions.AuthenticationFailed(detail=f'{e}', code=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = UserSerializer(user)
+        data = serializer.data
+        data.pop("password")        
+        return Response(data=data)
+    
+    def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            refresh = RefreshToken.for_user(user)
-            token_data = {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
+            new_user = serializer.save()
+            print(new_user)
+           
+            # Generate access token
+            access_token = AccessToken.for_user(new_user)
+
+            # Generate refresh token
+            refresh_token = RefreshToken.for_user(new_user)
+
+            # Include tokens in the logs dictionary
+            logs = {
+                "access_token": str(access_token),  # Access token string
+                "refresh_token": str(refresh_token),  # Refresh token string
+                "access_lifetime": access_token.lifetime,
+                "refresh_token_lifetime": refresh_token.lifetime
             }
-            return Response(data={'message': 'User created successfully', 'token': token_data}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            headers = {
+            "Authorization": f'Bearer {str(access_token)}'}
+            return Response(logs,headers=headers, status=status.HTTP_201_CREATED)
+        
+       
+        
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "unsupported request format", "context" : serializer.error_messages, "errors": serializer.errors})

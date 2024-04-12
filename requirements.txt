@@ -1,10 +1,6 @@
 asgiref==3.8.1
-cffi==1.16.0
-cryptography==42.0.5
 Django==5.0.4
+django-rest-framework==0.1.0
 djangorestframework==3.15.1
-djangorestframework-simplejwt==5.3.1
-pycparser==2.22
-PyJWT==1.7.1
+rest-framework-simplejwt==0.0.2
 sqlparse==0.4.4
-typing_extensions==4.10.0

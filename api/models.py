@@ -69,13 +69,13 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     is_company = models.BooleanField(default=False)
     account_balance = models.PositiveIntegerField(default=1000)
-    image_url = models.URLField(null=False)
+    image_url = models.URLField(default="https://fund-rest-framework.s3.amazonaws.com/ev.energy_logo.png")
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     long = models.DecimalField(max_digits=9, decimal_places=6)
     # Other User fields go here...
     
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username"]
+    REQUIRED_FIELDS = ["username", "password"]
 
 class Company(models.Model):
     admin = models.OneToOneField(User, related_name="company", on_delete=models.CASCADE)

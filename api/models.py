@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from .utils import verify_image
 class Metric(models.TextChoices):
     GRAM = 'g', ('Gram') 
     KILOGRAM = 'kg', ('Kilogram')
@@ -52,17 +52,8 @@ class Medication(models.Model):
     dosage = models.CharField(max_length=100)
     condition = models.ForeignKey(MedicalCondition, related_name='medications', on_delete=models.CASCADE)
 
-class MedicalProfile(models.Model):
-    conditions = models.ManyToManyField(MedicalCondition, related_name="medical_profiles")
-    dietary_highlights = models.TextField()
-    summary = models.TextField()
-    food_allergies = models.ManyToManyField(Allergy)    
+  
 
-class MedicalNutrientNeedItem(models.Model):
-    nutrient = models.ManyToManyField(Nutrients, related_name="nutrient_items")
-    amount = models.PositiveIntegerField(null=True)
-    metric = models.CharField(choices=Metric.choices, default=Metric.GRAM, max_length=10)
-    medicalprofile = models.ForeignKey(MedicalProfile, related_name="nutritional_needs", on_delete=models.CASCADE)
 
 class User(AbstractUser):
     username = models.TextField()
@@ -75,7 +66,30 @@ class User(AbstractUser):
     # Other User fields go here...
     
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "password"]
+    REQUIRED_FIELDS = ["username", "password", "lat", "long"]
+    
+    def save(self, *args, **kwargs):
+        
+        # Check if the password has been set or changed
+        if self._state.adding or self.password != self._password:
+            self.set_password(raw_password=self.password)
+        # check that the image is indeed an image or set a default link
+        if verify_image(self.image_url):
+            self.image_url = "https://example.com/profile_image.jpg"
+        super().save(*args, **kwargs)  
+            
+class MedicalProfile(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="medical_profiles")
+    conditions = models.ManyToManyField(MedicalCondition, related_name="medical_profiles")
+    dietary_highlights = models.TextField()
+    summary = models.TextField()
+    food_allergies = models.ManyToManyField(Allergy)  
+
+class MedicalNutrientNeedItem(models.Model):
+    nutrient = models.ManyToManyField(Nutrients, related_name="nutrient_items")
+    amount = models.PositiveIntegerField(null=True)
+    metric = models.CharField(choices=Metric.choices, default=Metric.GRAM, max_length=10)
+    medicalprofile = models.ForeignKey(MedicalProfile, related_name="nutritional_needs", on_delete=models.CASCADE)
 
 class Company(models.Model):
     admin = models.OneToOneField(User, related_name="company", on_delete=models.CASCADE)

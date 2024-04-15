@@ -38,7 +38,9 @@ class MedicalProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MedicalProfile
-        fields = ['id', 'conditions', 'dietary_highlights', 'summary', 'food_allergies']
+        fields = ['id', 'owner_id', 'conditions', 'dietary_highlights', 'summary', 'food_allergies']
+        
+        exclude = ["owner_id"]
 
 class MedicalNutrientNeedItemSerializer(serializers.ModelSerializer):
     nutrient = NutrientsSerializer(many=True)
@@ -61,10 +63,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email', 'is_company',  'account_balance', 'image_url', 'lat', 'long', 'password']
         
-        read_only_fields = ['account_balance', ]
-
-
-
+        read_only_fields = ['account_balance']
+        extra_kwargs = {
+            'password': {'write_only': True},  # Exclude password from serialized output
+        }
+    
     
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -89,3 +92,8 @@ class StoreSerializer(serializers.ModelSerializer):
         model = Store
         fields = ['id', 'last_updated', 'items']
 
+class ProfileSerializer(serializers.Serializer):
+    user = UserSerializer()
+    medical_profiles = MedicalProfileSerializer()
+    
+    

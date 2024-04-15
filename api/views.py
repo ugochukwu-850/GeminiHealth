@@ -1,47 +1,32 @@
 from django.shortcuts import render
 from rest_framework import views, generics, status, exceptions
-import rest_framework.exceptions
 from rest_framework_simplejwt.tokens import AccessToken
 
-
-import rest_framework.static
-from .models import User
-from .serializers import UserSerializer
+from .models import MedicalProfile
+from .serializers import UserSerializer, MedicalProfileSerializer, ProfileSerializer
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 import rest_framework
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+
+from .custom_permissions import isMedicalProfileOwner
+from rest_framework.parsers import MultiPartParser
 
 
 # Create your views here.
 class UserView(generics.GenericAPIView):
     
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny, IsAuthenticated]
     serializer_class = UserSerializer
     """Create, update , and view a user profile"""
     
     def get(self, request):
+        user = request.user
         
-        auth_string = request.headers.get('Authorization')
-        if not auth_string:
-            return Response(data="No authorization headers detected",status=status.HTTP_401_UNAUTHORIZED)
-        try:
-            bearer, token = auth_string.split()
-            if bearer.lower() != "bearer":
-                return Response(detail="Unsupported header format", status=status.HTTP_400_BAD_REQUEST)
-            
-            access_token = AccessToken(token)
-            
-            # Retrieve the user ID from the token payload
-            user_id = access_token.payload['user_id']
-            user = User.objects.get(pk=user_id)
-        except Exception as e :
-            raise exceptions.AuthenticationFailed(detail=f'{e}', code=status.HTTP_400_BAD_REQUEST)
+        serializer = UserSerializer(user)   
         
-        serializer = UserSerializer(user)
-        data = serializer.data
-        data.pop("password")        
-        return Response(data=data)
+        return Response(data=serializer.data)
     
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -69,3 +54,33 @@ class UserView(generics.GenericAPIView):
        
         
         return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "unsupported request format", "context" : serializer.error_messages, "errors": serializer.errors})
+    
+class MedicalReport(generics.GenericAPIView):
+     
+    permission_classes = [IsAuthenticated, isMedicalProfileOwner]
+    serializer_class = MedicalProfileSerializer
+    parser_classes = [MultiPartParser]
+    
+    def get(request, pk):
+        
+        medic_profile = MedicalProfile.objects.get(pk=pk)
+        
+        serialized = MedicalProfileSerializer(medic_profile)
+        
+        return Response(data=serialized.data, status=status.HTTP_200_OK)
+    
+    def post(request):
+        files = request.FILES
+        
+        # @Oblivion create the system to use the files and serialize them into medical profiles 
+        
+    
+        
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def profile_view(request):
+    user = UserSerializer(request.user)
+    medical_profile = MedicalProfileSerializer(MedicalProfile.objects.all().filter(owner=request.user), many=True)
+    
+    return Response(data={"user":user.data, "medical_profiles": medical_profile.data}, status=status.HTTP_200_OK)
+   

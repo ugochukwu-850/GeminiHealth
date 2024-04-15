@@ -1,6 +1,9 @@
-from django.db import models
+from django.db import models, IntegrityError
 from django.contrib.auth.models import AbstractUser
+from pathlib import Path
 from .utils import verify_image
+import csv
+
 class Metric(models.TextChoices):
     GRAM = 'g', ('Gram') 
     KILOGRAM = 'kg', ('Kilogram')
@@ -30,12 +33,68 @@ class Metric(models.TextChoices):
     DROPS = 'drops', ('Drops')
 
 class Allergy(models.Model):
-    name = models.CharField(max_length=225)
+    name = models.CharField(max_length=225, unique=True)
+    classification = models.CharField(max_length=225)
+    topology = models.CharField(max_length=225)
+    group = models.CharField(max_length=225)
 
 class Ingredients(models.Model):
-    name = models.TextField()
+    name = models.TextField(unique=True)
     spoonacular_id = models.CharField(max_length=225)
     allergies = models.ManyToManyField(Allergy, related_name="ingredients")
+    
+    @classmethod
+    def populate(self):
+        allergies = Path("public_src/FoodData.csv")
+        ingredients = Path("public_src/ingredients.csv")
+        
+        # read the allergies into memory
+        with open(allergies, mode="r") as f:
+            allergies = csv.DictReader(f)
+            all_set = {}
+            
+            for allergy in allergies:
+                                  
+                # create a allergy instance
+                try:
+                    alley = Allergy(name=allergy["Allergy"].strip(), classification=allergy["Class"], topology=allergy["Type"], group=allergy["Group"])
+
+                    alley.save()
+                    all_set[str(allergy["Food"].strip().lower())] = alley
+                except IntegrityError:
+                    all_set[str(allergy["Food"].strip().lower())] = Allergy.objects.all().get(name=allergy["Allergy"])
+                
+            allergies = all_set
+            
+        
+        with open(ingredients, mode="r") as f:
+            ingredients = csv.reader(f)
+            all_ingies = []
+            
+            for ingredient in ingredients:
+                ingredient = str(ingredient).strip("'][").split(";")
+                
+                all_ingies.append({"name": str(ingredient[0]), "id": str(ingredient[1])})
+            
+            ingredients = all_ingies
+            for ingredient in ingredients:
+                i_allergy = allergies.get(ingredient["name"].strip().lower())
+                try:
+                    ingy = Ingredients(name=ingredient["name"], spoonacular_id=ingredient["id"])
+                    ingy.save()
+                    if i_allergy is not None:
+                        ingy.allergies.add(i_allergy)
+                except IntegrityError:
+                    ingy = Ingredients.objects.get(name=ingredient["name"])
+                    if i_allergy is not None:
+                        ingy.allergies.add(i_allergy)
+                
+        
+      
+                    
+            
+        
+        
 
 class Nutrients(models.Model):
     name = models.CharField(max_length=100, unique=True)

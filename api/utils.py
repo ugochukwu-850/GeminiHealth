@@ -17,7 +17,11 @@ def extract_text_from_bytes(pdf_bytes):
     return text
 def process_images_with_ai(file):
     file_data_text =  extract_text_from_bytes(file)
-    genai.configure(api_key="AIzaSyDPTDZsYC7sRtekElUSS3OsCYPoeEmdq8g")
+    from dotenv import load_dotenv
+    load_dotenv()
+    import os
+    
+    genai.configure(api_key=os.getenv("GEMINI_KEY"))
     model = genai.GenerativeModel("models/gemini-1.0-pro")
     
     prompt = r"""

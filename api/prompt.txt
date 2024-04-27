@@ -1,29 +1,4 @@
-from google import generativeai as genai
-import pathlib
-import textwrap
-import PyPDF2
-from io import BytesIO  # Import BytesIO from the io module
-
-def extract_text_from_bytes(pdf_bytes):
-    # Open the PDF file from bytes
-    pdf_stream = BytesIO(pdf_bytes)
-    pdf_reader = PyPDF2.PdfReader(pdf_stream)
-    
-    # Extract text from each page
-    text = ''
-    for page_num in range(len(pdf_reader.pages)):
-        text += pdf_reader.pages[page_num].extract_text()
-    
-    return text
-def process_images_with_ai(file):
-    file_data_text =  extract_text_from_bytes(file)
-    genai.configure(api_key="AIzaSyDPTDZsYC7sRtekElUSS3OsCYPoeEmdq8g")
-    model = genai.GenerativeModel("models/gemini-1.0-pro")
-    
-    prompt = r"""
-    
-    SYSTEM PROMPT:
-    You would act as a medical report slip interpreter .
+You would act as a medical report slip interpreter .
 You would fill this JSON based medical profile slip with data .
 Covering each field .
 Keep vocabulary simple as if for a lame man .
@@ -52,25 +27,8 @@ This is the template you should fill
       "latitude": e.g 40.7128,
       "longitude": e.g -74.0060
     }]  }  
-    
-    """
-    
-    prompt = prompt + f"PATIENT REPORT SLIP DATA: \n {file_data_text}"
-    
-    
-    
-    response = model.generate_content(prompt)
-    print(response)
 
-    import json
-    
-    return {"mp": json.loads(response.text)}
 
-#models/gemini-1.0-pro
-#models/gemini-1.0-pro-001
-#models/gemini-1.0-pro-latest
-#models/gemini-1.0-pro-vision-latest
-#models/gemini-1.5-pro-latest
-#models/gemini-pro
-#models/gemini-pro-vision
-#process_images_with_ai()
+
+
+

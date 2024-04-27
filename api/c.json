@@ -1,0 +1,147 @@
+{"1":{
+    "conditions": [
+      {
+        "id": "Unique identifier for the medical condition",
+        "name": "Name of the medical condition",
+        "diagnose_date": "Date when the medical condition was diagnosed",
+        "learn_more": "URL to public resources about the illness",
+        "explanation": "Explanation or description of the medical condition for a lame man"
+      }
+    ],
+    "dietary_highlights": "Highlights of the recommended diet for the user based on their medical profile",
+    "summary": "Summary or overview of the user's medical profile. Make this field sound as friendly as possible and speak from the active tense. Make this as long as neccessary , so it covers all the medical conditions and any info the patient may have not deduced from the medical report slip",
+    "food_allergies": [
+      {
+        "name": "Name of the allergen",
+        "classification": "Classification of the allergen (e.g., Food, Environmental)",
+        "topology": "Type of allergen (e.g., Allergen, Irritant)",
+        "group": "Group or category to which the allergen belongs"
+      }
+    ],
+    "nutritional_needs": [
+      {
+        "nutrient": [
+          {
+            "name": "Name of the nutrient",
+            "amount": "Amount of the nutrient needed by the user",
+            "metric": "Unit of measurement for the amount (e.g., GRAM, MILLIGRAM)"
+          }
+        ]
+      }
+    ]}
+  , "12": {
+    "conditions": [
+      {
+        "id": "condition-dementia",
+        "name": "Dementia",
+        "diagnose_date": "November 2010",
+        "learn_more": "https://www.alz.org/",
+        "explanation": "Dementia is a condition that affects your memory and thinking skills, making it hard to remember things, learn new information, and make decisions."
+      },
+      {
+        "id": "condition-stroke",
+        "name": "Stroke",
+        "diagnose_date": "2005 (multiple strokes), April 2010 (most recent)",
+        "learn_more": "https://www.stroke.org/",
+        "explanation": "A stroke happens when the blood supply to part of your brain is cut off, which can damage brain cells and affect your ability to move, speak, and think clearly."
+      },
+      {
+        "id": "condition-hypertension",
+        "name": "Hypertension (High Blood Pressure)",
+        "diagnose_date": "1990",
+        "learn_more": "https://www.heart.org/en/health-topics/high-blood-pressure",
+        "explanation": "Hypertension means your blood pressure is consistently too high, which can put extra strain on your heart and blood vessels."
+      },
+      {
+        "id": "condition-hyperlipidemia",
+        "name": "Hyperlipidemia (High Cholesterol)",
+        "diagnose_date": "1990",
+        "learn_more": "https://www.mayoclinic.org/diseases-conditions/high-blood-cholesterol/symptoms-causes/syc-20350800",
+        "explanation": "Hyperlipidemia means you have high levels of cholesterol in your blood, which can increase your risk of heart disease and stroke."
+      },
+      {
+        "id": "condition-cardiomyopathy",
+        "name": "Cardiomyopathy (Heart Muscle Disease)",
+        "diagnose_date": "After 2005 strokes",
+        "learn_more": "https://www.heart.org/en/health-topics/cardiomyopathy",
+        "explanation": "Cardiomyopathy is a disease that affects the heart muscle, making it harder for your heart to pump blood effectively."
+      },
+      {
+        "id": "condition-heart-failure",
+        "name": "Cardiac Failure (Heart Failure)",
+        "diagnose_date": "After 2005 strokes",
+        "learn_more": "https://www.heart.org/en/health-topics/heart-failure",
+        "explanation": "Heart failure means your heart isn't pumping blood as well as it should, which can cause fatigue, shortness of breath, and swelling in your legs and feet."
+      },
+      {
+        "id": "condition-chronic-kidney-disease",
+        "name": "Chronic Renal Disease (Chronic Kidney Disease)",
+        "diagnose_date": "After 2005 strokes",
+        "learn_more": "https://www.kidney.org/atoz/content/about-chronic-kidney-disease",
+        "explanation": "Chronic kidney disease means your kidneys are damaged and not working as well as they should."
+      },
+      {
+        "id": "condition-incontinence",
+        "name": "Incontinence",
+        "diagnose_date": "Not specified, but current",
+        "learn_more": "https://www.nia.nih.gov/health/urinary-incontinence-older-adults",
+        "explanation": "Incontinence means you have difficulty controlling your bladder or bowels."
+      }
+    ],
+    "dietary_highlights": "Based on your medical history, it's recommended to follow a diet that is low in sodium, saturated fat, and cholesterol. This will help manage your hypertension, hyperlipidemia, and heart conditions. It's also important to maintain a healthy weight and stay active.  Additionally, due to your kidney disease, it might be necessary to adjust your intake of protein, potassium, and phosphorus. Your doctor or a registered dietitian can provide personalized guidance on these adjustments.",
+    "summary": "Mr. Tan, your medical report shows that you have several health conditions that require ongoing management. These include dementia, which affects your memory and thinking; a history of strokes, which have impacted your brain function; and other conditions like hypertension, high cholesterol, heart problems, and kidney disease. You also experience incontinence and require assistance with daily activities.  It's important to continue following your doctor's advice and treatment plans to manage these conditions and maintain your quality of life. Your son, Mr. Tan Ah Beng, is actively involved in your care and provides valuable support.",
+    "food_allergies": [
+      {
+        "name": "Shellfish",
+        "classification": "Food",
+        "topology": "Allergen",
+        "group": "Crustaceans"
+      },
+      {
+        "name": "Peanuts",
+        "classification": "Food",
+        "topology": "Allergen",
+        "group": "Legumes"
+      },
+      {
+        "name": "Eggs",
+        "classification": "Food",
+        "topology": "Allergen",
+        "group": "Animal Products"
+      }
+    ],
+    "nutritional_needs": [
+      {
+        "nutrient": [
+          {
+            "name": "Vitamin D",
+            "amount": "800",
+            "metric": "IU" 
+          },
+          {
+            "name": "Calcium",
+            "amount": "1000",
+            "metric": "MILLIGRAM"
+          },
+          {
+            "name": "Potassium",
+            "amount": "As advised by doctor due to kidney disease", 
+            "metric": "MILLIGRAM"
+          },
+          {
+            "name": "Phosphorus",
+            "amount": "As advised by doctor due to kidney disease",
+            "metric": "MILLIGRAM"
+          },
+          {
+            "name": "Protein",
+            "amount": "As advised by doctor due to kidney disease",
+            "metric": "GRAM"
+          }
+        ]
+      }
+    ]
+  }}
+
+
+          "data": "- 1 - \n SAMPLE  \n(All names and details provided in this sample are fictitious.   \nSome fields have been deliberately left blank. ) \n \n \nMEDICAL REPORT  \n \nSECTION 1: PATIENT’S PARTICULARS  \n \nFull name of patient:  Mr Tan Ah Kow  \n \nNRIC/FIN/Passport no. of patient:  S1111111X  \n \nAge of patient:  55 years old  \n \nSECTION 2: DOCTOR’S PARTICULARS  \n \nFull name of doctor:  Tan Ah Moi  \n \nNRIC/FIN/Passport no. of doctor:  S2222222Z   \n \n \nMCR no. of doctor:  333333  \n \nHospital / Clinic name and address:  1 Blackacre Hospital, Singapore 01010101  \n \n \n \nDoctor’s qualifications and experience in this area of work:  \n \n \n[To set out details ] \n \n \n \n \n \n \n - 2 - \n  \nDoctor -patient relationship:  \n \nPlease state if you have been seeing the patient regularly over a period of time (if so, \nplease state when you first started see ing the patient and how often you see the \npatient) or if you saw the patient specifically for this mental capacity assessment only.  \n \n \nI have been the doctor in ch arge of Mr Tan Ah Kow  since November 2010. I have \nseen Mr Tan regularly since then, on average  once or twice a year. For purposes of \nthis medical report, I re-examined Mr Tan on 2 0 June 2015.  \n \n \n \n \n \n \n \n \n \nSECTION 3: PATIENT’S MEDICAL INFORMATION  \n \n \nPatient’s clinical history:  \n \nPlease also state the source of the information (e.g. from medical records,  from the \npatient, from the applicant etc.).  \n \nMr Tan Ah Kow  was accompanied by his son, Mr Tan Ah Beng , for the examination . \nMr Tan is a 55 year old  man, who is divorced , and unemployed . Mr Tan  is currently \nliving with  his son, Ah Beng , in Ah Beng’s flat. Mr Tan Ah Beng informed me that \nMr Tan Ah Kow used to work as a  cleaner.  \n \nMr Tan Ah Kow has a history of medical conditions. He has had hypertension and \nhyperlipidemia since 199 0 and suffered several strokes in 200 5. He subsequently \ndeveloped heart problem s (cardiomyopathy) , cardiac failure and chronic renal disease \nand was treated in ABC  Hospital.  \n \nHe was last admitted to the ABC  Hospital  on 1 April  2010 till 15 April 201 0, during \nwhich he was diagnosed  to have suffered from a stroke. This was confirmed by  CT \nand MRI brain scans.  \n \nThereafter, he was transferred to XYZ  Hospital for stroke rehabilitation on 1 5 April \n2010.  \n \nAfter that , Mr Tan was referred to Blackacre Hospital for follow -up treatment  from in \nNovember 2010 . The clinical impression was that he was manifesting behavioural and \npsychological symptoms secondary to Dementia.  \n - 3 - \n The clinical impression wa s that he was manifesting behavioural and psychological \nsymptoms secondary to Dementia.  \n \nI was informed by Mr Tan Ah Beng  that Mr Tan is at present incontinent, and is \nunable to bathe or use the toilet on his own. He is, however, able to feed himself.  \n \nI have observed a gradual deterioration in his cognitive ability and physical state over \nthe years.  \n \n \n \nFindings from physical examination / mental state examination:  \n \nPlease state your observations of the patient (i.e. the patient’s demeanour, body \nlanguage,  tone of voice etc. relevant to your assessment), the interactions you had \nwith the patient/the tests you administered/the questions you posed, and the date you \nexamined the patient.  \n \nMr Tan was brought to the clinic in a wheel chair. His mood was euthymi c (i.e. \nnormal, non -depressed and reasonably positive mood) and he did not have any \npsychotic symptoms .  \n \nOrientation to time, place and person  \n \nWith regard to his orientation to time, place and person, he was unable to tell that he \nwas in a hospital clini c but identified his son an d was able to tell his own name  and \nthe name of his son . After being told he was in a hospital clinic, he identified me as a \ndoctor, when asked. However, he could not remember my name, although I have been \ntreating him for the la st 5 years. He was able to tell correctly how he arrived at the \nclinic. However, when asked some moments later where he was, he said he did not \nknow.  \n \nHe said that it was 10 February (actual date 2 0 June) and it was a Wednesday (actual \nday, Monday).  He ap peared to be just guessing as to what date and day it was.  After \nbeing told what the day and date were, he forgot a few moments  later after being \nasked again.  He could not answer when asked what year it was.  \n \nWhen asked what time it was, h e said that it wa s 5pm in the afternoon (actual time, \n3pm).  He was not able to tell the time from looking  at a watch.  \n \nBasic information  \n \nHe gave his age as 50 years old (actually 55 years) and could not answer when asked \nwhen his birthday was. He correctly said he lived in a flat with his son, but could not \ngive the correct address, and also got the area wrong (he said the flat was in Bedok, \nwhen it was actually in Jurong.) He incorrectly stated that the Prime Minister was Lee \nKuan Yew.  - 4 - \n  \nSimple arithmetic, financial issue s \n \nMr Tan was unable to perform simple arithmetic  such as 4 plus 3, giving 8 as the \nanswer, and could not subtract 7 from 10. He could not count backwards from 20 to 1.  \nHe wa s unable to recognise notes  or coins (he identified a 50 -cent coin as 20 cents \nand a 10-dollar note as 2 dollars).  \n \nPersonal welfare/property and affairs related questions  \n \nI asked Mr Tan if he owned any property. Mr Tan said he did. I asked him if he was \nthe sole owner. He said yes. (However, Mr Tan Ah Beng informed me that Mr Tan  \nowne d the flat together with his (Mr Tan’s) elderly mother, in joint names , and that \nthe elderly mother was currently living in the flat by herself.) I asked Mr Tan what the \naddress  of the flat was. He said he could not remember . I asked how many rooms the \nflat had, and he said it was a 4 -room flat. (However, Mr Tan Ah Beng said it was a 3 -\nroom flat.) I asked Mr Tan what he wanted to do with the flat, since he was not \nstaying there. He said that he wanted to rent it  out. I asked him whether he planned to \nrent o ut the whole flat. Mr Tan said yes (even though his elderly mother was still \nliving there.)  I asked him how much rent he planned to charge,  Mr Tan said he did not \nknow , and that he was not good at money matters .  \n \nI asked him whether he knew what medical p roblems he had. Mr Tan just stared at me \nblankly and shook his head. I asked him whether he remem bered being in hospital \nbefore . Mr Tan nodded. I asked him if he knew what he was in hospital for. Mr Tan \nshook his head. I asked him if he was taking any medi cine at the moment. Mr Tan just \nlooked at me blankly and did not reply.  \n \nDate of physical examination/ ment al state examination: 20 June 2015  \n \n \nRelevant investigation results:  \n \n[Results of CT brain , MRI brain  scan and other investigations to be stated. ]   \n \n \n  - 5 - \n Diagnosis:  \n1. Dementia  \n2. Stroke  \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nSECTION 4: OPINION ON PATIENT’S MENTAL CAPACITY  \n \nOPINION ON PATIENT’S MENTAL CAPACITY IN RELATION TO \nPERSONAL WELFARE  \n \nIn your opinion, can the patient understand information relevant to a decision \nrelating to hi s or her personal welfare?  \n \n Yes  No \n \nIn your opinion, can the patient retain information long enough to make a \ndecision relating to his or her personal welfare?  \n \n Yes            No \n \nIn your opinion, can the patient weigh information as part of the pro cess of - 6 - \n making a decision relating to his or her personal welfare?  \n \n Yes  No \n \nIn your opinion, can the patient communicate his or her decision relating to his \nor her personal welfare?  \n \nYes            No               \n \nTaking into consideration the above, in your o pinion, does the patient have \nmental capacity in respect of personal welfare?  \n \n Yes   No \n \n \nOPINION ON PATIENT’S MENTAL CAPACITY IN RELATION TO \nPROPERTY AND AFFAIRS  \n \nIn your opinion, can the patient understand information relevant to a decision \nrelati ng to his or her property and affairs?   \n Yes  No \n \nIn your opinion, can the patient retain information long enough to make a \ndecision relating to his or her property and affairs?   \n Yes  No \n \nIn your opinion, can the patient weigh information as part of t he process of \nmaking a decision relating to his or her property and affairs?   \n Yes  No \n \nIn your opinion, can the patient communicate his or her decision relating to his \nor her property and affairs?   \nYes No \n \nTaking into consideration the above, in your opinion, does the patient have \nmental capacity in respect of property and affairs?   \n Yes No \n - 7 - \n  Please state the basis of your opinion above in respect of the patient’s mental \ncapacity:  \n \nMr Tan’s dementia and stroke have impaired the functioning of his m ind and brain. \nHis failure to remember where he was (i.e. in the hospital) and the day and date, \ndespite being told a short while ago, shows his inability to retain information.  He was \nalso not able to remember basic information such as his age, and the a ddress where he \nlives.  \n \nHis failure to tell the time from a watch or to recognize notes and coins shows his \ninability to understand simple information.  \n \nHe could not do basic arithmetic, which shows that he is not able to weigh and use \ninformation.  \n \nSince he is unable to understand, retain, use or weigh simple information , due to his \nmemory deficits and cognitive failures, he will not be able to make decisions  about \nhis personal and financial affairs , which would require being able to process such \ninforma tion. This is also demonstrated by his inability  to rem ember basic information \non the property he owns with his elderly mother, and also his inability to make a \nrealistic and concrete plan for what to do with t he property . He was also not able to \nremember what medical problems he has, and not able to answer a question as to \nwhether he is currently on medication . \n \nIn my view, his cognitive functions are unlikely to improve and would most likely  get \nworse over time , as there is no treatment which can reverse his dementia . \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n - 8 - \n  \n \n \nAre you aware of any other doctor who holds a different professional opinion \nregarding the patient’ s mental capacity? If so, please provide details:  \n \n \nNo. \n \n \n \n \n \n  \nPROGNOSIS  \n \nIn your opinion, is the patient likely to regain mental capacity?  \n \n Yes  No         Not Sure  \n \nIf “Yes” or “Not Sure”, please suggest when another assessment of the patient’s \nmental capacity should be carr ied out:  \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nIn your opinion, would the patient understand if he/she were to be informed of \nthis application?  \n Yes             No  - 9 - \n  \nSECTION 5: DECLARATION  \n \n \nI have read and understood the provisions in sections 3, 4 and 5 of the Mental \nCapacity Act.  \n \nI believe in the correctness of the opinion set out herein.  \n \nI understa nd that in giving this report my duty is to the Court and I confirm that \nI have complied with this duty.  \n \n \n \n \n \n \nSignature:  _[Doctor to sign ]_________  \n \nName:  ______ Dr Tan Ah Moi ____  \n \nDate:  ______ 20 July 2015 ________  \n \n \nExplanatory notes:  \n \n1. “Personal welfare” refers to matters such as deciding where to live and consenting to medical and \ndental treatment.  \n \n2. “Property and affairs”, as the name implies, refers to matters concerning the patient’s financial \naffairs and property.  \n \n3. When giving your opinion on the pati ent’s mental capacity, please note that where it is not patently \nobvious from the clinical history and examination that the patient has or lacks capacity, you will \nneed to explain the basis for your opinion.  \n \n \nSection 3 of the Mental Capacity Act  \n \n(1) The fol lowing principles apply for the purposes of this Act.  \n \n(2) A person must be assumed to have capacity unless it is established that he lacks capacity.  \n \n(3) A person is not to be treated as unable to make a decision unless all practicable steps to help him to \ndo so have been taken without success.  \n \n(4) A person is not to be treated as unable to make a decision merely because he makes an unwise \ndecision.  \n \n(5) An act done, or a decision made, under this Act for or on behalf of a person who lacks capacity must \nbe done, or m ade, in his best interests.  \n \n(6) Before the act is done, or the decision is made, regard must be had to whether the purpose for which \nit is needed can be as effectively achieved in a way that is less restrictive of the person’s rights and \nfreedom of action.  \n \n \nSection 4 of the Mental Capacity Act  \n \n(1) For the purposes of this Act, a person lacks capacity in relation to a matter if at the material time he \nis unable to make a decision for himself in relation to the matter because of an impairment of, or a - 10 - \n disturbanc e in the functionin g of, the mind or brain.  \n \n(2) It does not matter whether the impairment or disturbance is permanent or temporary.  \n \n(3) A lack of capacity cannot be established merely by reference to —  \n \n(a) a person’s age or appearance; or  \n \n(b) a condition of his, or  an aspect of his behaviour, which might lead others to make unjustified \nassumptions about his capacity.  \n \n(4) In proceedings under this Act (other than proceedings for offences under this Act), any question \nwhether a person lacks capacity within the meaning of  this Act must be decided o n the balance of \nprobabilities.  \n \n(5) Subject to section 21, no power which a person (“D” ) may exercise under this Act — \n \n(a) in relation to a person who lacks capacity; or  \n(b) where D reasonably thinks that a person lacks capacity,  \n \nis exe rcisable in relation to a person below 21 years of age.  \n \n \nSection 5 of the Mental Capacity Act  \n \n(1) For the purposes of section 4, a person is unable to make a decis ion for himself if he is unable — \n \n(a) to understand the inform ation relevant to the decision;  \n(b) to retain that  information;  \n(c) to use or weigh that information as part of the process of making the decision; or  \n(d) to communicate his decision (whether by talking, using sig n language or any other means).  \n \n(2) A person is not to be regarded as unable to understand the  information relevant to a decision if he is \nable to understand an explanation of it given to him in a way that is appropriate to his \ncircumstances (using simple language, visual aids or any other means).  \n \n(3) The fact that a person is able to retain the info rmation relevant to a decision for a short period only \ndoes not prevent him from being regarded as able to make the decision.  \n \n(4) The information relevant to a decision includes information about the reasonably foreseeable \nconsequences of — \n \n(a) deciding one way  or another; or  \n(b) failing to make the decision.  "

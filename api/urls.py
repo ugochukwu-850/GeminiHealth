@@ -3,12 +3,15 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from django.urls import include, path
-from .views import UserView, profile_view
+from . import views
+
 
 urlpatterns =[
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('user/', UserView.as_view(), name="register"),
-    path('profile/', profile_view, name="profile"),
+    path('user/', views.UserView.as_view(), name="register"),
+    path('profile/', views.profile_view, name="profile"),
+    path('get_mp/<str:pk>', views.MedicalReport.as_view(), name="medical_profile"),
+    path('create_mp/', views.CreateMedicalReport.as_view(), name="create_mp")
     
 ]

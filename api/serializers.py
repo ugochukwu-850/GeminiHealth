@@ -1,6 +1,8 @@
 from rest_framework import serializers, exceptions, status, response
 from .models import MedicalCondition, Medication, Nutrients, Allergy, Ingredients, MedicalProfile, MedicalNutrientNeedItem, User, Company, Recipe, Store, StoreItem
 from rest_framework_simplejwt.tokens import RefreshToken
+
+
 class MetricSerializer(serializers.Serializer):
     value = serializers.CharField()
     label = serializers.CharField()
@@ -67,6 +69,15 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True},  # Exclude password from serialized output
         }
+        
+        depth = 1
+        
+    def create(self, validated_data):
+        if validated_data["is_copmpany"] == True:
+            company = CompanySerializer(validated_data["company"], partial=True)
+            if company.is_valid():
+                company.save()
+        return super().create(validated_data)
     
     
 

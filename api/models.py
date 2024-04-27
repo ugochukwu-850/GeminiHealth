@@ -1,7 +1,6 @@
 from django.db import models, IntegrityError
 from django.contrib.auth.models import AbstractUser
 from pathlib import Path
-from .utils import verify_image
 import csv
 
 class Metric(models.TextChoices):
@@ -88,12 +87,7 @@ class Ingredients(models.Model):
                     ingy = Ingredients.objects.get(name=ingredient["name"])
                     if i_allergy is not None:
                         ingy.allergies.add(i_allergy)
-                
-        
-      
-                    
-            
-        
+                 
         
 
 class Nutrients(models.Model):
@@ -104,6 +98,7 @@ class MedicalCondition(models.Model):
     diagnose_date = models.DateField()
     learn_more = models.URLField()
     explanation = models.TextField(null=False, blank=False)
+    emergency_actions = models.TextField(help_text="A field covering the first aid and emergency course of action for this condition")
 
 class Medication(models.Model):
     name = models.CharField(max_length=100)
@@ -111,15 +106,13 @@ class Medication(models.Model):
     dosage = models.CharField(max_length=100)
     condition = models.ForeignKey(MedicalCondition, related_name='medications', on_delete=models.CASCADE)
 
-  
-
 
 class User(AbstractUser):
     username = models.TextField()
     email = models.EmailField(unique=True)
     is_company = models.BooleanField(default=False)
     account_balance = models.PositiveIntegerField(default=1000)
-    image_url = models.URLField(default="https://fund-rest-framework.s3.amazonaws.com/ev.energy_logo.png")
+    image_url = models.ImageField(upload_to="sdb/user_images/", blank=True, null=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     long = models.DecimalField(max_digits=9, decimal_places=6)
     # Other User fields go here...
@@ -133,9 +126,23 @@ class User(AbstractUser):
         if self._state.adding or self.password != self._password:
             self.set_password(raw_password=self.password)
         # check that the image is indeed an image or set a default link
-        if verify_image(self.image_url):
-            self.image_url = "https://example.com/profile_image.jpg"
-        super().save(*args, **kwargs)  
+        
+        super().save(*args, **kwargs)
+
+class HealthcareProvider(models.Model):
+    name = models.CharField(max_length=255)
+    specialization = models.CharField(max_length=255, blank=True, null=True)
+    phone_number = models.CharField(max_length=20)
+    address = models.TextField()
+    email_address = models.EmailField(blank=True)
+    site_url = models.URLField(blank=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=20)
+    country = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name  
             
 class MedicalProfile(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="medical_profiles")
@@ -143,6 +150,8 @@ class MedicalProfile(models.Model):
     dietary_highlights = models.TextField()
     summary = models.TextField()
     food_allergies = models.ManyToManyField(Allergy)  
+    suggested_healthcare_nearby = models.ManyToManyField(HealthcareProvider, related_name="medical_profiles")
+
 
 class MedicalNutrientNeedItem(models.Model):
     nutrient = models.ManyToManyField(Nutrients, related_name="nutrient_items")
@@ -152,17 +161,18 @@ class MedicalNutrientNeedItem(models.Model):
 
 class Company(models.Model):
     admin = models.OneToOneField(User, related_name="company", on_delete=models.CASCADE)
-    cover_photo = models.URLField()
-    profile_photo = models.URLField()
+    cover_photo =models.ImageField(upload_to="sdb/companies/cover", blank=True, null=True)
+    profile_photo = models.ImageField(upload_to="sdb/companies/profile", blank=True, null=True)
     name = models.CharField(max_length=225)
     about = models.TextField(null=True)
     joined = models.DateTimeField(auto_now=True)
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255) # make name unique 
     preparation_method = models.CharField(choices=Metric.choices, null=True, max_length=255)
     ingredients = models.ManyToManyField(Ingredients, related_name="recipes")
     company = models.ForeignKey(Company, related_name="recipes", on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="sdb/user_images/", blank=True, null=True)
 
 class Store(models.Model):
     last_updated = models.DateTimeField(auto_now_add=True)
